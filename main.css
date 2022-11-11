@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  transition: margin 0.8s ease-out;
+  background: linear-gradient(90deg, rgba(134,115,115,1) 0%, rgba(232,215,215,1) 96%);
+}
+
+.screen.up {
+  margin-top: -100vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  text-align: center;
+}
+
+.game-title {
+  font-size: 70px;
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+.input {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-width: 0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 20px;
+  color: #6c6868;
+  background-color: #fff;
+  transition: background-color .2s ease-in-out;
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input:focus {
+  outline: none;
+  background-color: #d2d2d2;
+}
+
+.input::placeholder {
+  color: #6c6868;
+}
+
+.start-btn {
+  margin: 0 auto;
+  background-color: #3f2aff;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  border-width: 0;
+  border-radius: 10px;
+  transition: background-color .2s ease-in-out, color .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+.start-btn:hover {
+  background-color: #2b15d3;
+  color: #f2f2f2;
+  box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.4) inset;
+}
+
+#root {
+  position: relative;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+}
+
+#root::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+
+#root.end-game::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .7);
+  opacity: 1;
+}
+
+.cards-wrapper {
+  width: 600px;
+  height: 750px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  perspective: 1000px;
+}
+
+.card {
+  --width: calc((100% / var(--vertical)) - 10px);
+  --height: calc((100% / var(--horizontal)) - 10px);
+  position: relative;
+  margin: 5px;
+  width: var(--width);
+  height: var(--height);
+  transform: scale(1);
+  transform-style: preserve-3d;
+  font-size: calc(6rem - (1px * (var(--horizontal) * var(--vertical))));;
+
+  transition: transform .5s ease-in-out;
+}
+
+.card.active {
+  transform: rotateY(180deg);
+}
+
+.card.opened .card-front {
+  background-color: #ffc913;
+  pointer-events: none;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3f2aff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: inherit;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  cursor: pointer;
+  box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+  transition: background-color .2s ease-in-out;
+}
+
+.card-front {
+  transform: rotateY(180deg);
+  background-color: #67c839;
+}
+
+.card-back:hover {
+  background-color: #2b15d3;
+}
+
+.restart-btn.hidden {
+  opacity: 0;
+}
+
+.restart-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  background-color: #3f2aff;
+  padding: 20px 40px;
+  font-family: inherit;
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 10px;
+  border-width: 0;
+  opacity: 1;
+
+  transition: background-color .1s ease-in-out, color .1s ease-in-out, box-shadow .1s ease-in-out, opacity .2s ease-in-out;
+}
+
+.restart-btn:hover {
+  background-color: #2b15d3;
+  color: #f2f2f2;
+  box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.4) inset;
+}
+
+.timer {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+  font-size: 40px;
+  color: #fff;
+}
